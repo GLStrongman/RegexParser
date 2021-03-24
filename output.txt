@@ -290,11 +290,11 @@ NO: ((H*)*)* with HHH
 NO: ((H*)*)* with HHHHH
 SYNTAX ERROR: ( with -
 SYNTAX ERROR: ) with -
-NO: * with -
+SYNTAX ERROR: * with -
 SYNTAX ERROR: (a with a
 SYNTAX ERROR: (a(b) with ab
 SYNTAX ERROR: (a(b))) with ab
-NO: a|* with a
+SYNTAX ERROR: a|* with a
 SYNTAX ERROR: [^(]* with aa
 SYNTAX ERROR: \(a with error
-NO: (*a) with a
+SYNTAX ERROR: (*a) with a

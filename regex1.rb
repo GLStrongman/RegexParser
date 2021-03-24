@@ -40,6 +40,22 @@ begin
     end
   end
 
+  def checkInvalidAsterix(regex, target)
+    if (regex.count "*") == 0 then
+      return false
+    elsif regex[0] == "*" then
+      return true
+    else
+      # Simple approach, will only check first asterix occurence
+      index = regex.index("*")
+      if ((regex[index-1] == "(") || (regex[index-1] == "|")) then
+        return true
+      else
+        return false
+      end
+    end
+  end
+
   # Iterate through the expressions and targets and check whether the regex matches
   regexFile.each_with_index do |i, n|
     if checkMatch(regexFile[n], targetFile[n]) then
@@ -47,6 +63,10 @@ begin
       outputFile.write("YES: " + regexFile[n] + " with " + targetFile[n] + "\n")
 
     elsif checkBracketMismatch(regexFile[n], targetFile[n]) then
+      puts "SYNTAX ERROR: " + regexFile[n] + " with " + targetFile[n]
+      outputFile.write("SYNTAX ERROR: " + regexFile[n] + " with " + targetFile[n] + "\n")
+
+    elsif checkInvalidAsterix(regexFile[n], targetFile[n]) then
       puts "SYNTAX ERROR: " + regexFile[n] + " with " + targetFile[n]
       outputFile.write("SYNTAX ERROR: " + regexFile[n] + " with " + targetFile[n] + "\n")
 
