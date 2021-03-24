@@ -288,13 +288,13 @@ NO: ((H*)*)* with
 NO: ((H*)*)* with H
 NO: ((H*)*)* with HHH
 NO: ((H*)*)* with HHHHH
-NO: ( with -
-NO: ) with -
+SYNTAX ERROR: ( with -
+SYNTAX ERROR: ) with -
 NO: * with -
-NO: (a with a
-NO: (a(b) with ab
-NO: (a(b))) with ab
+SYNTAX ERROR: (a with a
+SYNTAX ERROR: (a(b) with ab
+SYNTAX ERROR: (a(b))) with ab
 NO: a|* with a
-NO: [^(]* with aa
-NO: \(a with error
+SYNTAX ERROR: [^(]* with aa
+SYNTAX ERROR: \(a with error
 NO: (*a) with a
