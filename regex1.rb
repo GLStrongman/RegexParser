@@ -56,6 +56,27 @@ begin
     end
   end
 
+  def checkDots(regex, target)
+    r = ""
+    t = ""
+    if regex.length == target.length then
+      for i in 0..regex.length-1
+        if regex[i] != "." then
+          r = r + regex[i]
+          t = t + target[i]
+        end
+      end
+    else
+      return false
+    end
+
+    if r == t then
+      return true
+    else
+      return false
+    end
+  end
+
   # Iterate through the expressions and targets and check whether the regex matches
   regexFile.each_with_index do |i, n|
     if checkMatch(regexFile[n], targetFile[n]) then
@@ -70,11 +91,15 @@ begin
       puts "SYNTAX ERROR: " + regexFile[n] + " with " + targetFile[n]
       outputFile.write("SYNTAX ERROR: " + regexFile[n] + " with " + targetFile[n] + "\n")
 
+    elsif checkDots(regexFile[n], targetFile[n]) then
+      puts "YES: " + regexFile[n] + " with " + targetFile[n]
+      outputFile.write("YES: " + regexFile[n] + " with " + targetFile[n] + "\n")
+
     else
       puts "NO: " + regexFile[n] + " with " + targetFile[n]
       outputFile.write("NO: " + regexFile[n] + " with " + targetFile[n] + "\n")
     end
   end
-  outputFile.close
 
+  outputFile.close
 end
