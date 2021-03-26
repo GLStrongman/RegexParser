@@ -31,51 +31,51 @@ YES: $5 with $5
 NO: $5 with $
 NO: $5 with 
 NO: a?? with 
-NO: . with a
+YES: . with a
 NO: . with 
-NO: . with x
+YES: . with x
 NO: . with pq
-NO: .. with ab
+YES: .. with ab
 NO: .. with abc
 NO: .. with a
-NO: .. with ()
-NO: a. with ab
+YES: .. with ()
+YES: a. with ab
 NO: a. with a
 NO: a. with abc
-NO: a. with a(
-NO: .b with ab
+YES: a. with a(
+YES: .b with ab
 NO: .b with b
 NO: .b with aab
 NO: .b with *b
-NO: a.c with abc
+YES: a.c with abc
 NO: a.c with ac
 NO: a.c with ab
-NO: a.c with aac
-NO: ab.c.. with abacus
+YES: a.c with aac
+YES: ab.c.. with abacus
 NO: ab.c.. with abacuses
 NO: ab.c.. with abac
-NO: ab.c.. with abacas
-NO: v...z with vwxyz
+YES: ab.c.. with abacas
+YES: v...z with vwxyz
 NO: v...z with v12z
-NO: ...z with wxyz
+YES: ...z with wxyz
 NO: ...z with xyz
 NO: ...z with vwxyz
 NO: ...z with z
-NO: (a) with a
+YES: (a) with a
 NO: (a) with b
-NO: (a)b with ab
+YES: (a)b with ab
 NO: (a)b with abb
-NO: a(b) with ab
+YES: a(b) with ab
 NO: a(b) with aab
-NO: (.) with X
+YES: (.) with X
 NO: (.) with 
-NO: (..) with XY
-NO: (..) with (XY)
-NO: a(b(c)) with abc
+YES: (..) with XY
+YES: (..) with (XY)
+YES: a(b(c)) with abc
 NO: a(b(c)) with abcd
-NO: ((a)b)c with abc
+YES: ((a)b)c with abc
 NO: ((a)b)c with ab
-NO: (a)(b) with ab
+YES: (a)(b) with ab
 NO: (a)(b) with abc
 NO: a|b with a
 NO: a|b with b
@@ -113,7 +113,7 @@ NO: .|.. with a
 NO: .|.. with ab
 NO: .|.. with 
 NO: .|.. with abc
-NO: hello.world with hello world
+YES: hello.world with hello world
 NO: hello.world with helloworld
 NO: ((a|bc)|d) with a
 NO: ((a|bc)|d) with bc
@@ -139,44 +139,44 @@ NO: a\|b with a\
 NO: a\|b with b
 NO: a\|b with a
 YES: a\|b with a\|b
-NO: a* with a
-NO: a* with 
-NO: a* with aa
-NO: a* with aaa
+YES: a* with a
+YES: a* with 
+YES: a* with aa
+YES: a* with aaa
 NO: a* with b
 NO: a* with bbb
-YES: a* with a*
+NO: a* with a*
 NO: a* with *
-NO: a*b with b
-NO: a*b with ab
+YES: a*b with b
+YES: a*b with ab
 NO: a*b with abb
-NO: a*b with aab
+YES: a*b with aab
 NO: a*b with bb
-YES: a*b with a*b
-NO: ab* with a
-NO: ab* with ab
-NO: ab* with abbb
+NO: a*b with a*b
+YES: ab* with a
+YES: ab* with ab
+YES: ab* with abbb
 NO: ab* with b
 NO: ab* with abc
-YES: ab* with ab*
+NO: ab* with ab*
 NO: (ab)* with ab
 NO: (ab)* with 
 NO: (ab)* with abab
 NO: (ab)* with ababab
 NO: (ab)* with abc
-YES: (ab)* with (ab)*
+NO: (ab)* with (ab)*
 NO: (ab)* with abb
 NO: (ab)* with aabb
 NO: 1(11)* with 1
 NO: 1(11)* with 11
 NO: 1(11)* with 111
 NO: 1(11)* with 1111
-NO: .* with hello
-NO: .* with 
-NO: ..* with x
-NO: ..* with xy
+YES: .* with hello
+YES: .* with 
+YES: ..* with x
+YES: ..* with xy
 NO: ..* with 
-NO: ..* with xyz
+YES: ..* with xyz
 NO: (..)* with 
 NO: (..)* with x
 NO: (..)* with xy
@@ -184,7 +184,7 @@ NO: (..)* with xyz
 NO: (..)* with wxyz
 NO: (..)* with abcde
 NO: (..)* with 1234567
-YES: (..)* with (..)*
+NO: (..)* with (..)*
 NO: (X.)* with 
 NO: (X.)* with Xa
 NO: (X.)* with XaXb
@@ -196,10 +196,10 @@ NO: (X.)* with XyXXy
 NO: (.y)* with syzygy
 NO: (.y)* with my
 NO: (.y)* with thy
-YES: (.y)* with (.y)*
+NO: (.y)* with (.y)*
 NO: (.y)* with yyy
 NO: (.y)* with bye
-NO: a*? with ?
+YES: a*? with ?
 NO: a*? with aa
 NO: (a|b)* with a
 NO: (a|b)* with b
