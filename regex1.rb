@@ -54,40 +54,73 @@ begin
 
     if regex.length >= 2 && regex[1] == "*"
      return CheckMatch(regex[2..regex.length], target) || (matched && CheckMatch(regex, target[1..target.length]))
-   else
+    else
      return matched && CheckMatch(regex[1..regex.length], target[1..target.length])
-   end
+    end
   end
 
-  def ScrapeBrackets(regex, target)
+  def ScrapeBrackets(regex)
     r = ''
     (0..regex.length-1).each do |i|
       if (regex[i] != ")") && (regex[i] != "(")
         r += regex[i]
       end
     end
-    if r.length == target.length
-      (0..r.length-1).each do |i|
-        if (r[i] == ".") || (r[i] == target[i])
-          # Do nothing
-        else
-          return false
-        end
-      end
+    return r
+  end
+
+  def SkipDots(r, t)
+    if r.length != t.length
+      return false
+    end
+    if r == "" && t == ""
       return true
+    end
+    (0..r.length-1).each do |i|
+      if (r[i] != ".") && (r[i] != t[i])
+        return false
+      end
+    end
+    return true
+  end
+
+  def CheckBrackets(regex, target)
+    r = ScrapeBrackets(regex)
+    if r.length == target.length
+      return SkipDots(r, target)
     end
     return false
   end
 
   def CheckPipe(regex, target)
     pipe = regex.count "|"
-    left = ""
-    middle = ""
-    right = ""
     if pipe == 0
       return false
     elsif pipe == 1
-      (0..pipe.index("|")).each
+      if regex[0] == "|"
+        l = ""
+      else
+        l = regex[0..(regex.index("|")-1)]
+      end
+      r = regex[(regex.index("|")+1)..regex.length]
+      left = ScrapeBrackets(l)
+      right = ScrapeBrackets(r)
+      return SkipDots(left, target) || SkipDots(right, target)
+    elsif pipe == 2
+      l = regex[0..(regex.index("|")-1)]
+      remainder = regex[(regex.index("|")+1..regex.length)]
+      if remainder[0] == "|"
+        m = ""
+      else
+        m = remainder[0..(remainder.index("|")-1)]
+      end
+      r = remainder[(remainder.index("|")+1)..remainder.length]
+      left = ScrapeBrackets(l)
+      middle = ScrapeBrackets(m)
+      right = ScrapeBrackets(r)
+      return SkipDots(left, target) || SkipDots(middle, target) || SkipDots(right, target)
+    else
+      return false
     end
   end
 
@@ -95,10 +128,18 @@ begin
     return (target.count "*") > 0
   end
 
+  def CheckTargetPipe(regex, target)
+    return (target.count "|") > 0
+  end
+
   # Iterate through the expressions and targets and check whether the regex matches
   regexFile.each_with_index do |i, n|
 
     if CheckTargetAsterisk(regexFile[n], targetFile[n]) then
+      puts "NO: " + regexFile[n] + " with " + targetFile[n]
+      outputFile.write("NO: " + regexFile[n] + " with " + targetFile[n] + "\n")
+
+    elsif CheckTargetPipe(regexFile[n], targetFile[n]) then
       puts "NO: " + regexFile[n] + " with " + targetFile[n]
       outputFile.write("NO: " + regexFile[n] + " with " + targetFile[n] + "\n")
 
@@ -118,7 +159,11 @@ begin
       puts "YES: " + regexFile[n] + " with " + targetFile[n]
       outputFile.write("YES: " + regexFile[n] + " with " + targetFile[n] + "\n")
 
-    elsif ScrapeBrackets(regexFile[n], targetFile[n]) then
+    elsif CheckBrackets(regexFile[n], targetFile[n]) then
+      puts "YES: " + regexFile[n] + " with " + targetFile[n]
+      outputFile.write("YES: " + regexFile[n] + " with " + targetFile[n] + "\n")
+
+    elsif CheckPipe(regexFile[n], targetFile[n]) then
       puts "YES: " + regexFile[n] + " with " + targetFile[n]
       outputFile.write("YES: " + regexFile[n] + " with " + targetFile[n] + "\n")
 
