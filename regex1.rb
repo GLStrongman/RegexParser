@@ -8,6 +8,8 @@ begin
     exit
   end
 
+  # Handles file reading erros
+  begin
   # Read in files from arguments
   regexFilePath = File.open(ARGV[0])
   targetFilePath = File.open(ARGV[1])
@@ -22,28 +24,35 @@ begin
   # Create or overwrite output file
   outputFile = File.open("output.txt", "w")
 
+  rescue
+    puts "Something has gone wrong with opening the expressions and targets files - is the path correct?"
+  end
+
+  # Check whether the regex and target match exactly
   def CheckExactMatch(regex, target)
     return regex == target
   end
 
-  def CheckBracketMismatch(regex, target)
+  # Check for bracket syntax errors
+  def CheckBracketMismatch(regex)
     open = regex.count "("
     close = regex.count ")"
     return open != close
   end
 
-  def CheckInvalidAsterisk(regex, target)
+  # Check for invalid characters before asterisks
+  def CheckInvalidAsterisk(regex)
     if (regex.count "*") == 0
       return false
     elsif regex[0] == "*"
       return true
     else
-      # Simple approach, will only check first asterix occurence
       index = regex.index("*")
       return (regex[index-1] == "(") || (regex[index-1] == "|")
     end
   end
 
+  # Check whether asterisks match target pattern
   def CheckMatch(regex, target)
     # Check if regex or target are empty
     if regex == ""
@@ -51,7 +60,6 @@ begin
     end
     # Recursively iterate through regex and target, checking for dots and asterisk matches
     matched = (target != "" && (regex[0] == target[0] || regex[0] == "."))
-
     if regex.length >= 2 && regex[1] == "*"
      return CheckMatch(regex[2..regex.length], target) || (matched && CheckMatch(regex, target[1..target.length]))
     else
@@ -59,6 +67,7 @@ begin
     end
   end
 
+  # Helper method to remove brackets from string
   def ScrapeBrackets(regex)
     r = ''
     (0..regex.length-1).each do |i|
@@ -69,6 +78,7 @@ begin
     return r
   end
 
+  # Helper method to check two strings ignoring periods
   def SkipDots(r, t)
     if r.length != t.length
       return false
@@ -84,6 +94,7 @@ begin
     return true
   end
 
+  # Check whether regex matches target with no brackets
   def CheckBrackets(regex, target)
     r = ScrapeBrackets(regex)
     if r.length == target.length
@@ -92,10 +103,12 @@ begin
     return false
   end
 
+  # Check whether regex with pipes match the target
   def CheckPipe(regex, target)
     pipe = regex.count "|"
     if pipe == 0
       return false
+    # Handle one pipe
     elsif pipe == 1
       if regex[0] == "|"
         l = ""
@@ -106,6 +119,7 @@ begin
       left = ScrapeBrackets(l)
       right = ScrapeBrackets(r)
       return SkipDots(left, target) || SkipDots(right, target)
+      # Handle double pipes
     elsif pipe == 2
       l = regex[0..(regex.index("|")-1)]
       remainder = regex[(regex.index("|")+1..regex.length)]
@@ -124,10 +138,12 @@ begin
     end
   end
 
+  # Check whether target contains asterisk
   def CheckTargetAsterisk(regex, target)
     return (target.count "*") > 0
   end
 
+  # Check whether target contains pipe
   def CheckTargetPipe(regex, target)
     return (target.count "|") > 0
   end
@@ -147,11 +163,11 @@ begin
       puts "YES: " + regexFile[n] + " with " + targetFile[n]
       outputFile.write("YES: " + regexFile[n] + " with " + targetFile[n] + "\n")
 
-    elsif CheckBracketMismatch(regexFile[n], targetFile[n]) then
+    elsif CheckBracketMismatch(regexFile[n]) then
       puts "SYNTAX ERROR: " + regexFile[n] + " with " + targetFile[n]
       outputFile.write("SYNTAX ERROR: " + regexFile[n] + " with " + targetFile[n] + "\n")
 
-    elsif CheckInvalidAsterisk(regexFile[n], targetFile[n]) then
+    elsif CheckInvalidAsterisk(regexFile[n]) then
       puts "SYNTAX ERROR: " + regexFile[n] + " with " + targetFile[n]
       outputFile.write("SYNTAX ERROR: " + regexFile[n] + " with " + targetFile[n] + "\n")
 
@@ -175,6 +191,6 @@ begin
 
   outputFile.close
 
-# rescue
-#   puts "Looks like something has gone wrong."
+rescue
+  puts "Looks like something has gone wrong."
 end
