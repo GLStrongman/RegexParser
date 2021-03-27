@@ -1,293 +1,293 @@
 YES: a with a
-NO: a with b
-NO: b with a
+ERROR: a with b
+ERROR: b with a
 YES: b with b
 YES: abc with abc
-NO: abc with abcd
-NO: xyz with xy
+ERROR: abc with abcd
+ERROR: xyz with xy
 YES: xyz with xyz
-NO: hello with hello world
+ERROR: hello with hello world
 YES: hello with hello
 YES: !@#$%^& with !@#$%^&
-NO: \\ with \
+ERROR: \\ with \
 YES: [ab] with [ab]
-NO: [ab] with a
+ERROR: [ab] with a
 YES: a+ with a+
-NO: a+ with a
-NO: [^a] with b
+ERROR: a+ with a
+ERROR: [^a] with b
 YES: [^a] with [^a]
-NO: a$ with a
+ERROR: a$ with a
 YES: a$ with a$
 YES: why? with why?
-NO: why? with wh
-NO: a{2} with aa
+ERROR: why? with wh
+ERROR: a{2} with aa
 YES: a{2} with a{2}
 YES: \[ with \[
-NO: \[ with [
+ERROR: \[ with [
 YES: x^2 with x^2
-NO: x^2 with xx
-NO: $5 with 5
+ERROR: x^2 with xx
+ERROR: $5 with 5
 YES: $5 with $5
-NO: $5 with $
-NO: $5 with 
-NO: a?? with 
+ERROR: $5 with $
+ERROR: $5 with 
+ERROR: a?? with 
 YES: . with a
-NO: . with 
+ERROR: . with 
 YES: . with x
-NO: . with pq
+ERROR: . with pq
 YES: .. with ab
-NO: .. with abc
-NO: .. with a
+ERROR: .. with abc
+ERROR: .. with a
 YES: .. with ()
 YES: a. with ab
-NO: a. with a
-NO: a. with abc
+ERROR: a. with a
+ERROR: a. with abc
 YES: a. with a(
 YES: .b with ab
-NO: .b with b
-NO: .b with aab
+ERROR: .b with b
+ERROR: .b with aab
 NO: .b with *b
 YES: a.c with abc
-NO: a.c with ac
-NO: a.c with ab
+ERROR: a.c with ac
+ERROR: a.c with ab
 YES: a.c with aac
 YES: ab.c.. with abacus
-NO: ab.c.. with abacuses
-NO: ab.c.. with abac
+ERROR: ab.c.. with abacuses
+ERROR: ab.c.. with abac
 YES: ab.c.. with abacas
 YES: v...z with vwxyz
-NO: v...z with v12z
+ERROR: v...z with v12z
 YES: ...z with wxyz
-NO: ...z with xyz
-NO: ...z with vwxyz
-NO: ...z with z
+ERROR: ...z with xyz
+ERROR: ...z with vwxyz
+ERROR: ...z with z
 YES: (a) with a
-NO: (a) with b
+ERROR: (a) with b
 YES: (a)b with ab
-NO: (a)b with abb
+ERROR: (a)b with abb
 YES: a(b) with ab
-NO: a(b) with aab
+ERROR: a(b) with aab
 YES: (.) with X
-NO: (.) with 
+ERROR: (.) with 
 YES: (..) with XY
 YES: (..) with (XY)
 YES: a(b(c)) with abc
-NO: a(b(c)) with abcd
+ERROR: a(b(c)) with abcd
 YES: ((a)b)c with abc
-NO: ((a)b)c with ab
+ERROR: ((a)b)c with ab
 YES: (a)(b) with ab
-NO: (a)(b) with abc
+ERROR: (a)(b) with abc
 YES: a|b with a
 YES: a|b with b
-NO: a|b with ab
+ERROR: a|b with ab
 NO: a|b with a|b
 YES: a|b|c with a
 YES: a|b|c with b
 YES: a|b|c with c
-NO: a|b|c with A
-NO: a|b|c with bb
-NO: a|b|c with 
+ERROR: a|b|c with A
+ERROR: a|b|c with bb
+ERROR: a|b|c with 
 YES: a| with a
 YES: a| with 
-NO: a| with b
-NO: a| with aa
+ERROR: a| with b
+ERROR: a| with aa
 YES: |b with b
 YES: |b with 
-NO: |b with a
-NO: |b with bb
+ERROR: |b with a
+ERROR: |b with bb
 YES: a||c with 
-NO: a||c with b
+ERROR: a||c with b
 YES: ab|cd with ab
 YES: ab|cd with cd
-NO: ab|cd with abcd
-NO: ab|cd with 
-NO: (a|b)(c|d) with ac
-NO: (a|b)(c|d) with ad
+ERROR: ab|cd with abcd
+ERROR: ab|cd with 
+ERROR: (a|b)(c|d) with ac
+ERROR: (a|b)(c|d) with ad
 YES: (a|b)(c|d) with bc
-NO: (a|b)(c|d) with bd
-NO: (a|b)(c|d) with ab
-NO: (a|b)(c|d) with abcd
-NO: (a|b)(c|d) with b
-NO: (a|b)(c|d) with c
+ERROR: (a|b)(c|d) with bd
+ERROR: (a|b)(c|d) with ab
+ERROR: (a|b)(c|d) with abcd
+ERROR: (a|b)(c|d) with b
+ERROR: (a|b)(c|d) with c
 YES: .|.. with a
 YES: .|.. with ab
-NO: .|.. with 
-NO: .|.. with abc
+ERROR: .|.. with 
+ERROR: .|.. with abc
 YES: hello.world with hello world
-NO: hello.world with helloworld
+ERROR: hello.world with helloworld
 YES: ((a|bc)|d) with a
 YES: ((a|bc)|d) with bc
 YES: ((a|bc)|d) with d
-NO: ((a|bc)|d) with ad
-NO: ((a|bc)|d) with bcd
-NO: ((a|bc)|d) with 
+ERROR: ((a|bc)|d) with ad
+ERROR: ((a|bc)|d) with bcd
+ERROR: ((a|bc)|d) with 
 YES: (ab|.)(|d) with ab
-NO: (ab|.)(|d) with abd
+ERROR: (ab|.)(|d) with abd
 YES: (ab|.)(|d) with X
-NO: (ab|.)(|d) with Xd
-NO: (ab|.)(|d) with abcd
-NO: (ab|.)(|d) with abc
+ERROR: (ab|.)(|d) with Xd
+ERROR: (ab|.)(|d) with abcd
+ERROR: (ab|.)(|d) with abc
 YES: (ab|.)(|d) with d
-NO: (ab|.)(|d) with XX
-NO: (ab|.)(|d) with add
-NO: (ab|.)(|d) with 
+ERROR: (ab|.)(|d) with XX
+ERROR: (ab|.)(|d) with add
+ERROR: (ab|.)(|d) with 
 YES: .|... with x
 YES: .|... with xyz
-NO: .|... with xy
-NO: .|... with wxyz
+ERROR: .|... with xy
+ERROR: .|... with wxyz
 YES: a\|b with a\
 YES: a\|b with b
-NO: a\|b with a
+ERROR: a\|b with a
 NO: a\|b with a\|b
 YES: a* with a
 YES: a* with 
 YES: a* with aa
 YES: a* with aaa
-NO: a* with b
-NO: a* with bbb
+ERROR: a* with b
+ERROR: a* with bbb
 NO: a* with a*
 NO: a* with *
 YES: a*b with b
 YES: a*b with ab
-NO: a*b with abb
+ERROR: a*b with abb
 YES: a*b with aab
-NO: a*b with bb
+ERROR: a*b with bb
 NO: a*b with a*b
 YES: ab* with a
 YES: ab* with ab
 YES: ab* with abbb
-NO: ab* with b
-NO: ab* with abc
+ERROR: ab* with b
+ERROR: ab* with abc
 NO: ab* with ab*
-NO: (ab)* with ab
-NO: (ab)* with 
-NO: (ab)* with abab
-NO: (ab)* with ababab
-NO: (ab)* with abc
+ERROR: (ab)* with ab
+ERROR: (ab)* with 
+ERROR: (ab)* with abab
+ERROR: (ab)* with ababab
+ERROR: (ab)* with abc
 NO: (ab)* with (ab)*
-NO: (ab)* with abb
-NO: (ab)* with aabb
-NO: 1(11)* with 1
-NO: 1(11)* with 11
-NO: 1(11)* with 111
-NO: 1(11)* with 1111
+ERROR: (ab)* with abb
+ERROR: (ab)* with aabb
+ERROR: 1(11)* with 1
+ERROR: 1(11)* with 11
+ERROR: 1(11)* with 111
+ERROR: 1(11)* with 1111
 YES: .* with hello
 YES: .* with 
 YES: ..* with x
 YES: ..* with xy
-NO: ..* with 
+ERROR: ..* with 
 YES: ..* with xyz
-NO: (..)* with 
-NO: (..)* with x
-NO: (..)* with xy
-NO: (..)* with xyz
-NO: (..)* with wxyz
-NO: (..)* with abcde
-NO: (..)* with 1234567
+ERROR: (..)* with 
+ERROR: (..)* with x
+ERROR: (..)* with xy
+ERROR: (..)* with xyz
+ERROR: (..)* with wxyz
+ERROR: (..)* with abcde
+ERROR: (..)* with 1234567
 NO: (..)* with (..)*
-NO: (X.)* with 
-NO: (X.)* with Xa
-NO: (X.)* with XaXb
-NO: (X.)* with XaXXXc
-NO: (X.)* with X
-NO: (X.)* with XXa
-NO: (X.)* with XabX
-NO: (X.)* with XyXXy
-NO: (.y)* with syzygy
-NO: (.y)* with my
-NO: (.y)* with thy
+ERROR: (X.)* with 
+ERROR: (X.)* with Xa
+ERROR: (X.)* with XaXb
+ERROR: (X.)* with XaXXXc
+ERROR: (X.)* with X
+ERROR: (X.)* with XXa
+ERROR: (X.)* with XabX
+ERROR: (X.)* with XyXXy
+ERROR: (.y)* with syzygy
+ERROR: (.y)* with my
+ERROR: (.y)* with thy
 NO: (.y)* with (.y)*
-NO: (.y)* with yyy
-NO: (.y)* with bye
+ERROR: (.y)* with yyy
+ERROR: (.y)* with bye
 YES: a*? with ?
-NO: a*? with aa
+ERROR: a*? with aa
 YES: (a|b)* with a
-NO: (a|b)* with b
-NO: (a|b)* with aa
-NO: (a|b)* with bb
-NO: (a|b)* with ab
-NO: (a|b)* with ba
-NO: (a|b)* with aab
-NO: (a|b)* with bab
-NO: (a|b)* with c
-NO: (a|b)* with ac
-NO: (a|b)* with abc
-NO: (a|b)* with cab
-NO: (a|b)* with bbbbbbc
-NO: (a|b)* with x
+ERROR: (a|b)* with b
+ERROR: (a|b)* with aa
+ERROR: (a|b)* with bb
+ERROR: (a|b)* with ab
+ERROR: (a|b)* with ba
+ERROR: (a|b)* with aab
+ERROR: (a|b)* with bab
+ERROR: (a|b)* with c
+ERROR: (a|b)* with ac
+ERROR: (a|b)* with abc
+ERROR: (a|b)* with cab
+ERROR: (a|b)* with bbbbbbc
+ERROR: (a|b)* with x
 NO: (a|b)* with a|ba|b
-NO: (a|b)* with A
+ERROR: (a|b)* with A
 YES: a|b* with a
-NO: a|b* with 
-NO: a|b* with b
-NO: a|b* with bbb
-NO: a|b* with aa
-NO: a|b* with ab
-NO: a|b* with c
-NO: a|b* with ba
+ERROR: a|b* with 
+ERROR: a|b* with b
+ERROR: a|b* with bbb
+ERROR: a|b* with aa
+ERROR: a|b* with ab
+ERROR: a|b* with c
+ERROR: a|b* with ba
 YES: (ab|c)* with ab
-NO: (ab|c)* with cab
-NO: (ab|c)* with abc
-NO: (ab|c)* with ababcc
-NO: (ab|c)* with a
-NO: (ab|c)* with b
-NO: (ab|c)* with d
+ERROR: (ab|c)* with cab
+ERROR: (ab|c)* with abc
+ERROR: (ab|c)* with ababcc
+ERROR: (ab|c)* with a
+ERROR: (ab|c)* with b
+ERROR: (ab|c)* with d
 NO: (ab|c)* with ab|c
-NO: ab*|c*d with 
-NO: ab*|c*d with ab
-NO: ab*|c*d with a
-NO: ab*|c*d with abbb
-NO: ab*|c*d with d
-NO: ab*|c*d with cccd
-NO: ab*|c*d with cd
-NO: ab*|c*d with ad
-NO: ab*|c*d with aa
-NO: ab*|c*d with dd
-NO: ab*|c*d with bbc
-NO: ab*|c*d with abab
-NO: ((hello|hi) (world|earth)! )* with hello world!
-NO: ((hello|hi) (world|earth)! )* with hi world!
-NO: ((hello|hi) (world|earth)! )* with hi earth!
-NO: ((hello|hi) (world|earth)! )* with hello earth!
-NO: ((hello|hi) (world|earth)! )* with hello world! hi earth!
-NO: ((hello|hi) (world|earth)! )* with hi earth! hello world! hi world!
-NO: ((hello|hi) (world|earth)! )* with 
-NO: ((hello|hi) (world|earth)! )* with hello world
-NO: ((hello|hi) (world|earth)! )* with helloworld!
-NO: ((hello|hi) (world|earth)! )* with hello hi world earth!
-NO: ((hello|hi) (world|earth)! )* with hello world! world!
-NO: ((hello|hi) (world|earth)! )* with hi hi earth!
-NO: ((hello|hi) (world|earth)! )* with hello world!
-NO: ((hello|hi) (world|earth)! )* with hi earth! !
-NO: (<.*>(.*)</(.*)>)* with <a>b</a>
-NO: (<.*>(.*)</(.*)>)* with <a>b</c>
-NO: (<.*>(.*)</(.*)>)* with <>b</a>
-NO: (<.*>(.*)</(.*)>)* with <a href="#"></a>
-NO: (<.*>(.*)</(.*)>)* with 
-NO: (<.*>(.*)</(.*)>)* with <></><>
-NO: (<.*>(.*)</(.*)>)* with <a>b</a><b>a</b>
-NO: (<.*>(.*)</(.*)>)* with <br /><a href="#hello">hi</a>
-NO: (<.*>(.*)</(.*)>)* with <a>b<a>
-NO: (<.*>(.*)</(.*)>)* with hello
-NO: (<.*>(.*)</(.*)>)* with <br />
-NO: (<.*>(.*)</(.*)>)* with <em>
-NO: (<.*>(.*)</(.*)>)* with </i>
-NO: (<.*>(.*)</(.*)>)* with </i><i>
-NO: (<.*>(.*)</(.*)>)* with <</>
-NO: (<.*>(.*)</(.*)>)* with </>
-NO: (ab*)* with 
-NO: (ab*)* with aa
-NO: (ab*)* with abab
-NO: (ab*)* with abbaab
-NO: (ab*)* with baa
-NO: (ab*)* with abc
-NO: (ab*)* with b
-NO: (ab*)* with aaabbbac
-NO: (X*)* with XXXXX
-NO: ((H*)*)* with 
-NO: ((H*)*)* with H
-NO: ((H*)*)* with HHH
-NO: ((H*)*)* with HHHHH
+ERROR: ab*|c*d with 
+ERROR: ab*|c*d with ab
+ERROR: ab*|c*d with a
+ERROR: ab*|c*d with abbb
+ERROR: ab*|c*d with d
+ERROR: ab*|c*d with cccd
+ERROR: ab*|c*d with cd
+ERROR: ab*|c*d with ad
+ERROR: ab*|c*d with aa
+ERROR: ab*|c*d with dd
+ERROR: ab*|c*d with bbc
+ERROR: ab*|c*d with abab
+ERROR: ((hello|hi) (world|earth)! )* with hello world!
+ERROR: ((hello|hi) (world|earth)! )* with hi world!
+ERROR: ((hello|hi) (world|earth)! )* with hi earth!
+ERROR: ((hello|hi) (world|earth)! )* with hello earth!
+ERROR: ((hello|hi) (world|earth)! )* with hello world! hi earth!
+ERROR: ((hello|hi) (world|earth)! )* with hi earth! hello world! hi world!
+ERROR: ((hello|hi) (world|earth)! )* with 
+ERROR: ((hello|hi) (world|earth)! )* with hello world
+ERROR: ((hello|hi) (world|earth)! )* with helloworld!
+ERROR: ((hello|hi) (world|earth)! )* with hello hi world earth!
+ERROR: ((hello|hi) (world|earth)! )* with hello world! world!
+ERROR: ((hello|hi) (world|earth)! )* with hi hi earth!
+ERROR: ((hello|hi) (world|earth)! )* with hello world!
+ERROR: ((hello|hi) (world|earth)! )* with hi earth! !
+ERROR: (<.*>(.*)</(.*)>)* with <a>b</a>
+ERROR: (<.*>(.*)</(.*)>)* with <a>b</c>
+ERROR: (<.*>(.*)</(.*)>)* with <>b</a>
+ERROR: (<.*>(.*)</(.*)>)* with <a href="#"></a>
+ERROR: (<.*>(.*)</(.*)>)* with 
+ERROR: (<.*>(.*)</(.*)>)* with <></><>
+ERROR: (<.*>(.*)</(.*)>)* with <a>b</a><b>a</b>
+ERROR: (<.*>(.*)</(.*)>)* with <br /><a href="#hello">hi</a>
+ERROR: (<.*>(.*)</(.*)>)* with <a>b<a>
+ERROR: (<.*>(.*)</(.*)>)* with hello
+ERROR: (<.*>(.*)</(.*)>)* with <br />
+ERROR: (<.*>(.*)</(.*)>)* with <em>
+ERROR: (<.*>(.*)</(.*)>)* with </i>
+ERROR: (<.*>(.*)</(.*)>)* with </i><i>
+ERROR: (<.*>(.*)</(.*)>)* with <</>
+ERROR: (<.*>(.*)</(.*)>)* with </>
+ERROR: (ab*)* with 
+ERROR: (ab*)* with aa
+ERROR: (ab*)* with abab
+ERROR: (ab*)* with abbaab
+ERROR: (ab*)* with baa
+ERROR: (ab*)* with abc
+ERROR: (ab*)* with b
+ERROR: (ab*)* with aaabbbac
+ERROR: (X*)* with XXXXX
+ERROR: ((H*)*)* with 
+ERROR: ((H*)*)* with H
+ERROR: ((H*)*)* with HHH
+ERROR: ((H*)*)* with HHHHH
 SYNTAX ERROR: ( with -
 SYNTAX ERROR: ) with -
 SYNTAX ERROR: * with -

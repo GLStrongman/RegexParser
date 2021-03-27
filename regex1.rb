@@ -150,6 +150,7 @@ begin
 
   # Iterate through the expressions and targets and check whether the regex matches
   regexFile.each_with_index do |i, n|
+    begin
 
     if CheckTargetAsterisk(regexFile[n], targetFile[n]) then
       puts "NO: " + regexFile[n] + " with " + targetFile[n]
@@ -186,6 +187,10 @@ begin
     else
       puts "NO: " + regexFile[n] + " with " + targetFile[n]
       outputFile.write("NO: " + regexFile[n] + " with " + targetFile[n] + "\n")
+    end
+    rescue
+      puts "ERROR: " + regexFile[n] + " with " + targetFile[n]
+      outputFile.write("ERROR: " + regexFile[n] + " with " + targetFile[n] + "\n")
     end
   end
 
