@@ -1,15 +1,14 @@
-begin
-  # Check the correct number of arguments has been given
-  if ARGV.length < 2
-    puts "Too few arguments given."
-    exit
-  elsif ARGV.length > 2
-    puts "Too many arguments given."
-    exit
-  end
+# Check the correct number of arguments has been given
+if ARGV.length < 2
+  puts "Too few arguments given."
+  exit
+elsif ARGV.length > 2
+  puts "Too many arguments given."
+  exit
+end
 
-  # Handles file reading erros
-  begin
+# Handles file reading errors
+begin
   # Read in files from arguments
   regexFilePath = File.open(ARGV[0])
   targetFilePath = File.open(ARGV[1])
@@ -24,10 +23,11 @@ begin
   # Create or overwrite output file
   outputFile = File.open("output.txt", "w")
 
-  rescue
-    puts "Something has gone wrong with opening the expressions and targets files - is the path correct?"
-  end
+rescue
+  puts "An error has occurred with opening the expressions and targets files - is the path correct?"
+end
 
+class RegexParser
   # Check whether the regex and target match exactly
   def CheckExactMatch(regex, target)
     return regex == target
@@ -48,7 +48,7 @@ begin
       return true
     else
       index = regex.index("*")
-      return (regex[index-1] == "(") || (regex[index-1] == "|")
+      return (regex[index - 1] == "(") || (regex[index - 1] == "|")
     end
   end
 
@@ -61,16 +61,16 @@ begin
     # Recursively iterate through regex and target, checking for dots and asterisk matches
     matched = (target != "" && (regex[0] == target[0] || regex[0] == "."))
     if regex.length >= 2 && regex[1] == "*"
-     return CheckMatch(regex[2..regex.length], target) || (matched && CheckMatch(regex, target[1..target.length]))
+      return CheckMatch(regex[2..regex.length], target) || (matched && CheckMatch(regex, target[1..target.length]))
     else
-     return matched && CheckMatch(regex[1..regex.length], target[1..target.length])
+      return matched && CheckMatch(regex[1..regex.length], target[1..target.length])
     end
   end
 
   # Helper method to remove brackets from string
   def ScrapeBrackets(regex)
     r = ''
-    (0..regex.length-1).each do |i|
+    (0..regex.length - 1).each do |i|
       if (regex[i] != ")") && (regex[i] != "(")
         r += regex[i]
       end
@@ -86,7 +86,7 @@ begin
     if r == "" && t == ""
       return true
     end
-    (0..r.length-1).each do |i|
+    (0..r.length - 1).each do |i|
       if (r[i] != ".") && (r[i] != t[i])
         return false
       end
@@ -113,22 +113,22 @@ begin
       if regex[0] == "|"
         l = ""
       else
-        l = regex[0..(regex.index("|")-1)]
+        l = regex[0..(regex.index("|") - 1)]
       end
-      r = regex[(regex.index("|")+1)..regex.length]
+      r = regex[(regex.index("|") + 1)..regex.length]
       left = ScrapeBrackets(l)
       right = ScrapeBrackets(r)
       return SkipDots(left, target) || SkipDots(right, target)
-      # Handle double pipes
+    # Handle double pipes
     elsif pipe == 2
-      l = regex[0..(regex.index("|")-1)]
-      remainder = regex[(regex.index("|")+1..regex.length)]
+      l = regex[0..(regex.index("|") - 1)]
+      remainder = regex[(regex.index("|") + 1..regex.length)]
       if remainder[0] == "|"
         m = ""
       else
-        m = remainder[0..(remainder.index("|")-1)]
+        m = remainder[0..(remainder.index("|") - 1)]
       end
-      r = remainder[(remainder.index("|")+1)..remainder.length]
+      r = remainder[(remainder.index("|") + 1)..remainder.length]
       left = ScrapeBrackets(l)
       middle = ScrapeBrackets(m)
       right = ScrapeBrackets(r)
@@ -149,53 +149,60 @@ begin
   end
 
   # Iterate through the expressions and targets and check whether the regex matches
-  regexFile.each_with_index do |i, n|
-    begin
+  def RunParser(regexFile, targetFile, outputFile)
+    regexFile.each_with_index do |i, n|
+      begin
+        if CheckTargetAsterisk(regexFile[n], targetFile[n]) then
+          puts "NO: " + regexFile[n] + " with " + targetFile[n]
+          outputFile.write("NO: " + regexFile[n] + " with " + targetFile[n] + "\n")
 
-    if CheckTargetAsterisk(regexFile[n], targetFile[n]) then
-      puts "NO: " + regexFile[n] + " with " + targetFile[n]
-      outputFile.write("NO: " + regexFile[n] + " with " + targetFile[n] + "\n")
+        elsif CheckTargetPipe(regexFile[n], targetFile[n]) then
+          puts "NO: " + regexFile[n] + " with " + targetFile[n]
+          outputFile.write("NO: " + regexFile[n] + " with " + targetFile[n] + "\n")
 
-    elsif CheckTargetPipe(regexFile[n], targetFile[n]) then
-      puts "NO: " + regexFile[n] + " with " + targetFile[n]
-      outputFile.write("NO: " + regexFile[n] + " with " + targetFile[n] + "\n")
+        elsif CheckExactMatch(regexFile[n], targetFile[n]) then
+          puts "YES: " + regexFile[n] + " with " + targetFile[n]
+          outputFile.write("YES: " + regexFile[n] + " with " + targetFile[n] + "\n")
 
-    elsif CheckExactMatch(regexFile[n], targetFile[n]) then
-      puts "YES: " + regexFile[n] + " with " + targetFile[n]
-      outputFile.write("YES: " + regexFile[n] + " with " + targetFile[n] + "\n")
+        elsif CheckBracketMismatch(regexFile[n]) then
+          puts "SYNTAX ERROR: " + regexFile[n] + " with " + targetFile[n]
+          outputFile.write("SYNTAX ERROR: " + regexFile[n] + " with " + targetFile[n] + "\n")
 
-    elsif CheckBracketMismatch(regexFile[n]) then
-      puts "SYNTAX ERROR: " + regexFile[n] + " with " + targetFile[n]
-      outputFile.write("SYNTAX ERROR: " + regexFile[n] + " with " + targetFile[n] + "\n")
+        elsif CheckInvalidAsterisk(regexFile[n]) then
+          puts "SYNTAX ERROR: " + regexFile[n] + " with " + targetFile[n]
+          outputFile.write("SYNTAX ERROR: " + regexFile[n] + " with " + targetFile[n] + "\n")
 
-    elsif CheckInvalidAsterisk(regexFile[n]) then
-      puts "SYNTAX ERROR: " + regexFile[n] + " with " + targetFile[n]
-      outputFile.write("SYNTAX ERROR: " + regexFile[n] + " with " + targetFile[n] + "\n")
+        elsif CheckMatch(regexFile[n], targetFile[n]) then
+          puts "YES: " + regexFile[n] + " with " + targetFile[n]
+          outputFile.write("YES: " + regexFile[n] + " with " + targetFile[n] + "\n")
 
-    elsif CheckMatch(regexFile[n], targetFile[n]) then
-      puts "YES: " + regexFile[n] + " with " + targetFile[n]
-      outputFile.write("YES: " + regexFile[n] + " with " + targetFile[n] + "\n")
+        elsif CheckBrackets(regexFile[n], targetFile[n]) then
+          puts "YES: " + regexFile[n] + " with " + targetFile[n]
+          outputFile.write("YES: " + regexFile[n] + " with " + targetFile[n] + "\n")
 
-    elsif CheckBrackets(regexFile[n], targetFile[n]) then
-      puts "YES: " + regexFile[n] + " with " + targetFile[n]
-      outputFile.write("YES: " + regexFile[n] + " with " + targetFile[n] + "\n")
+        elsif CheckPipe(regexFile[n], targetFile[n]) then
+          puts "YES: " + regexFile[n] + " with " + targetFile[n]
+          outputFile.write("YES: " + regexFile[n] + " with " + targetFile[n] + "\n")
 
-    elsif CheckPipe(regexFile[n], targetFile[n]) then
-      puts "YES: " + regexFile[n] + " with " + targetFile[n]
-      outputFile.write("YES: " + regexFile[n] + " with " + targetFile[n] + "\n")
-
-    else
-      puts "NO: " + regexFile[n] + " with " + targetFile[n]
-      outputFile.write("NO: " + regexFile[n] + " with " + targetFile[n] + "\n")
-    end
-    rescue
-      puts "ERROR: " + regexFile[n] + " with " + targetFile[n]
-      outputFile.write("ERROR: " + regexFile[n] + " with " + targetFile[n] + "\n")
+        else
+          puts "NO: " + regexFile[n] + " with " + targetFile[n]
+          outputFile.write("NO: " + regexFile[n] + " with " + targetFile[n] + "\n")
+        end
+      rescue
+        puts "ERROR: " + regexFile[n] + " with " + targetFile[n]
+        outputFile.write("ERROR: " + regexFile[n] + " with " + targetFile[n] + "\n")
+      end
     end
   end
-
-  outputFile.close
-
-rescue
-  puts "Looks like something has gone wrong."
 end
+
+begin
+  # Run the regex parser
+  regexParser = RegexParser.new
+  regexParser.RunParser(regexFile, targetFile, outputFile)
+  outputFile.close
+rescue
+  puts ("A general error has occurred.")
+end
+
+
