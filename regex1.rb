@@ -20,8 +20,8 @@ begin
   regexFilePath.close
   targetFilePath.close
 
-  # Create or overwrite output file
-  outputFile = File.open("output.txt", "w")
+  # # Create or overwrite output file
+  # outputFile = File.open("output.txt", "w")
 
 rescue
   puts "An error has occurred with opening the expressions and targets files - is the path correct?"
@@ -149,48 +149,48 @@ class RegexParser
   end
 
   # Iterate through the expressions and targets and check whether the regex matches
-  def RunParser(regexFile, targetFile, outputFile)
+  def RunParser(regexFile, targetFile)
     regexFile.each_with_index do |i, n|
       begin
         if CheckTargetAsterisk(regexFile[n], targetFile[n]) then
           puts "NO: " + regexFile[n] + " with " + targetFile[n]
-          outputFile.write("NO: " + regexFile[n] + " with " + targetFile[n] + "\n")
+          #outputFile.write("NO: " + regexFile[n] + " with " + targetFile[n] + "\n")
 
         elsif CheckTargetPipe(regexFile[n], targetFile[n]) then
           puts "NO: " + regexFile[n] + " with " + targetFile[n]
-          outputFile.write("NO: " + regexFile[n] + " with " + targetFile[n] + "\n")
+          #outputFile.write("NO: " + regexFile[n] + " with " + targetFile[n] + "\n")
 
         elsif CheckExactMatch(regexFile[n], targetFile[n]) then
           puts "YES: " + regexFile[n] + " with " + targetFile[n]
-          outputFile.write("YES: " + regexFile[n] + " with " + targetFile[n] + "\n")
+          #outputFile.write("YES: " + regexFile[n] + " with " + targetFile[n] + "\n")
 
         elsif CheckBracketMismatch(regexFile[n]) then
           puts "SYNTAX ERROR: " + regexFile[n] + " with " + targetFile[n]
-          outputFile.write("SYNTAX ERROR: " + regexFile[n] + " with " + targetFile[n] + "\n")
+          #outputFile.write("SYNTAX ERROR: " + regexFile[n] + " with " + targetFile[n] + "\n")
 
         elsif CheckInvalidAsterisk(regexFile[n]) then
           puts "SYNTAX ERROR: " + regexFile[n] + " with " + targetFile[n]
-          outputFile.write("SYNTAX ERROR: " + regexFile[n] + " with " + targetFile[n] + "\n")
+          #outputFile.write("SYNTAX ERROR: " + regexFile[n] + " with " + targetFile[n] + "\n")
 
         elsif CheckMatch(regexFile[n], targetFile[n]) then
           puts "YES: " + regexFile[n] + " with " + targetFile[n]
-          outputFile.write("YES: " + regexFile[n] + " with " + targetFile[n] + "\n")
+          #outputFile.write("YES: " + regexFile[n] + " with " + targetFile[n] + "\n")
 
         elsif CheckBrackets(regexFile[n], targetFile[n]) then
           puts "YES: " + regexFile[n] + " with " + targetFile[n]
-          outputFile.write("YES: " + regexFile[n] + " with " + targetFile[n] + "\n")
+          #outputFile.write("YES: " + regexFile[n] + " with " + targetFile[n] + "\n")
 
         elsif CheckPipe(regexFile[n], targetFile[n]) then
           puts "YES: " + regexFile[n] + " with " + targetFile[n]
-          outputFile.write("YES: " + regexFile[n] + " with " + targetFile[n] + "\n")
+          #outputFile.write("YES: " + regexFile[n] + " with " + targetFile[n] + "\n")
 
         else
           puts "NO: " + regexFile[n] + " with " + targetFile[n]
-          outputFile.write("NO: " + regexFile[n] + " with " + targetFile[n] + "\n")
+          #outputFile.write("NO: " + regexFile[n] + " with " + targetFile[n] + "\n")
         end
       rescue
         puts "ERROR: " + regexFile[n] + " with " + targetFile[n]
-        outputFile.write("ERROR: " + regexFile[n] + " with " + targetFile[n] + "\n")
+        #outputFile.write("ERROR: " + regexFile[n] + " with " + targetFile[n] + "\n")
       end
     end
   end
@@ -199,8 +199,8 @@ end
 begin
   # Run the regex parser
   regexParser = RegexParser.new
-  regexParser.RunParser(regexFile, targetFile, outputFile)
-  outputFile.close
+  regexParser.RunParser(regexFile, targetFile)
+  #outputFile.close
 rescue
   puts ("A general error has occurred.")
 end
